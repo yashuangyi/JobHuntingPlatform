@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>通知中心</title>
+    <script src="../../Scripts/jquery-3.4.1.js"></script>
+    <script src="../../Source/packages/layui/layui.js"></script>
+    <script src="../../Scripts/Project/NoticeBox/noticeBox.js"></script>
+    <link rel="stylesheet" href="../../Source/packages/layui/css/layui.css">
+</head>
+<body>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+        <legend>通知中心&gt;&gt;Notice Box</legend>
+    </fieldset>
+    <blockquote class="layui-elem-quote layui-quote-nm">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">通知查询</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="input" id="input" lay-verify="required" style="width:400px;" placeholder="请输入通知内容，支持模糊查询" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <button type="button" class="layui-btn layui-btn-normal" id="search">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
+            </div>
+        </form>
+    </blockquote>
+
+    <blockquote class="layui-elem-quote layui-quote-nm">
+        <!--通知信息的表格-->
+        <table id="table_notice" lay-filter="table_notice"></table>
+    </blockquote>
+
+    <!--修改表格的工具列-->
+    <script type="text/html" id="toolbar">
+        {{# if(d.IsReply === 0 && d.Type === "简历投递"){ }}
+        <a class="operation" lay-event="invite" title="发出邀请">
+            <i class="layui-icon layui-icon-release"></i>邀请
+        </a>
+        <a class="operation" style="margin-left:10px;" lay-event="seeker_refuse" title="婉拒">
+            <i class="layui-icon layui-icon-face-cry"></i>婉拒
+        </a>
+        {{#  } }}
+        {{# if(d.IsReply === 0 && d.Type === "面试邀请"){ }}
+        <a class="operation" lay-event="agree" title="确认面试">
+            <i class="layui-icon layui-icon-ok"></i>确认
+        </a>
+        <a class="operation" style="margin-left:10px;" lay-event="company_refuse" title="婉拒">
+            <i class="layui-icon layui-icon-face-cry"></i>婉拒
+        </a>
+        {{#  } }}
+    </script>
+
+    <!--修改表格的状态列-->
+    <script type="text/html" id="statusbar">
+        {{# if(d.IsReply === 0){ }}
+        <span style="color:#FFC125;">待回复</span>
+        {{#  } }}
+        {{# if(d.IsReply === 1){ }}
+        <span style="color:#00CD00;">已回复</span>
+        {{#  } }}
+    </script>
+</body>
+</html>

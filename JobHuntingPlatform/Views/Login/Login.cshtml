@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html style="width: 100%;height: 100%;overflow: hidden;">
+<head>
+    <meta charset="utf-8">
+    <title>求职招聘平台</title>
+    <script src="../../Source/packages/layui/layui.js"></script>
+    <script src="../../Scripts/Project/Login/login.js"></script>
+    <script src="../../Scripts/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="../../Source/packages/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../Source/packages/css/login.css">
+</head>
+<body style="width: 100%;height: 100%;font-family: 'Open Sans',sans-serif;margin: 0;background-color: #4A374A;">
+    <div style="position: absolute;top: 50%;left:50%;margin: -150px 0 0 -150px;width: 300px;height: 300px;">
+        <div style="text-align:center;">
+            <img src="../../Source/images/login.jpg" style="width: 100px;height: 100px;" alt="图片加载失败啦..." title="Welcome~" />
+        </div>
+        <h1 style="color: #fff;text-shadow:0 0 10px;letter-spacing: 1px;text-align: center; ">求职招聘平台</h1>
+        <br />
+        <form method="post">
+            <input type="text" required="required" autocomplete="off" placeholder="用户名" id="account" name="u" class="layui-input">
+            <br />
+            <input type="password" required="required" placeholder="密码" id="password" name="p" class="layui-input">
+            <br />
+            <button class="but" type="button" id="btn_login">登录</button>
+            <br />
+            <button class="but2" type="button" onclick="btn_addUser()">用户注册</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="but2" type="button" onclick="btn_addCompany()">企业注册</button>
+            <br />
+        </form>
+    </div>
+
+    <!--求职者注册的弹窗-->
+    <div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_addUser" hidden>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>账号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="account" id="userAccount" lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" id="userPw" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>确认密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="pwAgain" id="userPwAgain" lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" id="userName" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>性别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="sex" id="radio_man" value="男" title="男" class="layui-form-radio" checked>
+                    <input type="radio" name="sex" id="radio_woman" value="女" title="女">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>年龄</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="age" id="userAge" lay-verify="required|number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>联系方式</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" id="userPhone" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>意向地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="address" id="userAddress" lay-verify="required" style="width:400px;" placeholder="请输入您的意向工作地点" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>意向职位</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="offer" id="userOffer" lay-verify="required" style="width:400px;" placeholder="请输入您的意向职位" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>简历</label>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-sm" id="btn_select">选择简历</button>
+                    <button type="button" class="layui-btn layui-btn-sm" id="btn_upload">开始上传</button>
+                </div>
+                <div id="userResume"></div>
+            </div>
+
+            <!--以下属性不显示，便于更新账户文件-->
+            <div class="layui-form-item" hidden>
+                <textarea id="userId" name="id"></textarea>
+                <textarea id="userIsRelease" name="isRelease"></textarea>
+                <textarea id="resumePath" name="resumePath"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <!--企业注册的弹窗-->
+    <div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_addCompany" hidden>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>账号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="account" id="companyAccount" lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" id="companyPw" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>确认密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="pwAgain" id="companyPwAgain" lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" id="companyName" lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>性质</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="type" id="companyType" lay-verify="required" style="width:400px;" placeholder="请输入公司的经营性质" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>联系方式</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" id="companyPhone" lay-verify="required" placeholder="请输入负责人联系方式" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="address" id="companyAddress" lay-verify="required" style="width:400px;" placeholder="请输入公司地点" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!--以下属性不显示，便于更新账户文件-->
+            <div class="layui-form-item" hidden>
+                <textarea id="companyId" name="id"></textarea>
+                <textarea id="companyIsPass" name="isPass"></textarea>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

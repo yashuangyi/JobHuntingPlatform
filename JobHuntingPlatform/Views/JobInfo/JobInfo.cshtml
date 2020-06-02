@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>资讯中心</title>
+    <script src="../../Scripts/jquery-3.4.1.js"></script>
+    <script src="../../Source/packages/layui/layui.js"></script>
+    <script src="../../Scripts/Project/JobInfo/jobInfo.js"></script>
+    <link rel="stylesheet" href="../../Source/packages/layui/css/layui.css">
+</head>
+<body>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+        <legend>资讯中心&gt;&gt;Job Article</legend>
+    </fieldset>
+    <blockquote class="layui-elem-quote layui-quote-nm">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">资讯查询</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="input" id="input" lay-verify="required" style="width:400px;" placeholder="请输入文章名称，支持模糊查询" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <button type="button" class="layui-btn layui-btn-normal" id="search">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
+            </div>
+        </form>
+    </blockquote>
+
+    <blockquote class="layui-elem-quote layui-quote-nm">
+        <!--资讯信息的表格-->
+        <table id="table_article" lay-filter="table_article"></table>
+    </blockquote>
+
+
+    <!--修改表格的工具列-->
+    <script type="text/html" id="toolbar">
+        <a class="operation" lay-event="view" title="阅览此文章">
+            <i class="layui-icon layui-icon-read"></i>阅览
+        </a>
+    </script>
+</body>
+</html>
