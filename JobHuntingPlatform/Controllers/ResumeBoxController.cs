@@ -49,7 +49,7 @@ namespace JobHuntingPlatform.Controllers
                 // 分页操作，Skip()跳过前面数据项
                 var result = Db.Queryable<Company, Recruitment, Record, Seeker>((c, r1, r2, s) => new object[]
                 {
-                    JoinType.Inner, r1.CompanyId == c.Id,
+                    JoinType.Inner, c.Id == r1.CompanyId && c.Id == userId,
                     JoinType.Inner, r1.Id == r2.RecruitmentId,
                     JoinType.Inner, r2.SeekerId == s.Id,
                 }).Select((c, r1, r2, s) => new ResumeDTO
@@ -68,7 +68,7 @@ namespace JobHuntingPlatform.Controllers
                 // 分页操作，Skip()跳过前面数据项
                 var result = Db.Queryable<Company, Recruitment, Record, Seeker>((c, r1, r2, s) => new object[]
                 {
-                    JoinType.Inner, r1.CompanyId == c.Id,
+                    JoinType.Inner, r1.CompanyId == c.Id && c.Id == userId,
                     JoinType.Inner, r1.Id == r2.RecruitmentId,
                     JoinType.Inner, r2.SeekerId == s.Id && s.Name.Contains(search),
                 }).Select((c, r1, r2, s) => new ResumeDTO
